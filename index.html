@@ -1,0 +1,175 @@
+<div id="app">
+    <input type="range" v-model="opacityVal" min="0" max="1" step="0.1">
+    <div v-bind:style="{ backgroundColor: 'rgba(155,20,20,'+opacityVal+')' }">
+        Drag the range input above to change opacity here.
+    </div>
+    <form v-on:submit.prevent="addItem">
+        <p>Add item</p>
+        <p>Item name: <input type="text" required v-model="itemName"></p>
+        <p>How many: <input type="number" v-model="itemNumber"></p>
+        <p>
+            Important?
+            <label>
+                <input type="checkbox" v-model="itemImportant">
+                {{ important }}
+            </label>
+        </p>
+        <button type="submit">Add item</button>
+    </form>
+
+    <p><strong>Shopping list:</strong></p>
+    <ul id="ulToFind">
+        <li v-for="item in shoppingList"
+            v-bind:class="{ impClass: item.important }"
+            v-on:click="item.found=!item.found"
+            v-show="!item.found">
+            {{ item.name }}, {{ item.number }}
+        </li>
+    </ul>
+    <ul id="ulFound">
+        <li v-for="item in shoppingList"
+            v-bind:class="{ impClass: item.important }"
+            v-on:click="item.found=!item.found"
+            v-show="item.found">
+            {{ item.name }}, {{ item.number }}
+        </li>
+    </ul>
+    <div v-for="(img, index) in images">
+        <img v-bind:src="img.url"
+             v-on:click="select(index)"
+             v-bind:class="{ selClass: img.sel }">
+    </div>
+    <div v-bind:style="{ backgroundColor: 'lightpink', 'font-weight': 'bolder' }">
+        This div tag has pink background and bold text.
+    </div>
+    <div v-bind:class="{yelClass: isYellow, impClass: isImportant}">
+        This tag can belong to both the 'impClass' and 'yelClass' classes.
+    </div>
+    <div v-bind:class="[{ impClass: isImportant }, 'yelClass' ]">
+        This div tag belongs to one or two classes depending on the isImportant property.
+    </div>
+
+    <input type="checkbox" v-model="chbxVal"> {{ chbxVal }} <br>
+    <input type="checkbox" v-model="chbxVal"> {{ isImportant }} <br>
+    <input type="range" v-model="rangeVal"> <br>
+    <p>{{ rangeVal }}</p>
+    <div v-on:click="updatePos" style="width: 300px; height: 100px; background-color: lightblue; border: 1px solid black; cursor: pointer;">
+        Click anywhere in this box to update position
+    </div>
+    <p>X Position: {{ xPos }}, X Difference: {{ xDiff }}</p>
+
+    <input type="email" v-model="inpAddress">
+    <p v-bind:class="myClass">{{ feedbackText }}</p>
+</div>
+<div id="app"></div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const app = Vue.createApp({
+        template:
+            `<h1>{{ message }}</h1>
+      <p>This is a second line of HTML code, inside back tick quotes</p>`,
+        data() {
+            return {
+                message: "Hello World!"
+            }
+        }
+    })
+    app.mount('#app')
+</script>
+<style>
+.valid {
+    color: green;
+    background-color: lightgreen;
+}
+.invalid {
+    color: red;
+    background-color: lightcoral;
+}
+</style>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                opacityVal: 0.5,
+                isYellow: true,
+                itemName: null,
+                itemNumber: null,
+                itemImportant: false,
+                important: false,
+                chbxVal: false,
+                images: [],
+                rangeVal: 70,
+                xPos: 0,
+                xDiff: 0,
+                inpAddress: '',
+                feedbackText: '',
+                myClass: 'invalid',
+                shoppingList: [
+                    {name: 'Tomatoes', number: 5, important: false, found: false}
+                ]
+            }
+        },
+        computed: {
+            isImportant() {
+                if (this.chbxVal) {
+                    return 'yes'
+                } else {
+                    return 'no'
+                }
+
+
+            }
+        },
+        watch: {
+            rangeVal(val){
+                if( val>20 && val<60) {
+                    if(val<40){
+                        this.rangeVal = 20;
+                    }
+                    else {
+                        this.rangeVal = 60;
+                    }
+                }
+            },
+            inpAddress(newVal,oldVal) {
+                if( !newVal.includes('@') ) {
+                    this.feedbackText = 'The e-mail address is NOT valid';
+                    this.myClass = 'invalid';
+                }
+                else if( !oldVal.includes('@') && newVal.includes('@') ) {
+                    this.feedbackText = 'Perfect! You fixed it!';
+                    this.myClass = 'valid';
+                }
+                else {
+                    this.feedbackText = 'The e-mail address is valid :)';
+                }
+            },
+            xPos(newVal,oldVal){
+                this.xDiff = newVal-oldVal
+            }
+        },
+        methods: {
+            addItem() {
+                let item = {
+                    name: this.itemName,
+                    number: this.itemNumber,
+                    important: this.itemImportant,
+                    found: false
+                }
+                this.shoppingList.push(item)
+                this.itemName = null
+                this.itemNumber = null
+                this.itemImportant = false
+            },
+            updatePos(evt) {
+                this.xPos = evt.offsetX
+            },
+            select(index) {
+                this.images[index].sel = !this.images[index].sel
+            }
+        }
+    })
+    app.mount('#app')
+</script> 
