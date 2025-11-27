@@ -1,23 +1,33 @@
 <template>
-  <h3>Todo List</h3>
-  <ul>
-    <todo-item
-        v-for="x in items"
-        :key="x"
-        :item-name="x"
-        style="background-color: lightgreen;"
-    />
-  </ul>
-  <input v-model="newItem">
-  <button @click="addItem">Add</button>
+  <h1>App.vue</h1>
+
+
+  <slot-comp>
+
+    <template #leftSlot="leftProps">
+      <div>{{ leftProps.text }}</div>
+    </template>
+
+    <template #rightSlot="rightProps">
+      <div>{{ rightProps.text }}</div>
+    </template>
+
+  </slot-comp>
+
+
 </template>
 
+
+
 <script>
+import SlotComp from './components/SlotComp.vue';
+
 export default {
   data() {
     return {
       newItem: '',
-      items: ['Buy apples','Make pizza','Mow the lawn']
+      items: ['Buy apples','Make pizza','Mow the lawn'],
+      foods: ['Apples','Pizza','Rice','Fish','Cake']
     };
   },
   methods: {
@@ -25,6 +35,10 @@ export default {
       this.items.push(this.newItem),
           this.newItem = '';
     }
+  },
+  components: {
+    'slot-comp': SlotComp
   }
 }
+
 </script>
