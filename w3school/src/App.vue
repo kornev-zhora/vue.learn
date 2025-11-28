@@ -1,25 +1,19 @@
 <template>
   <h1>Dynamic Components</h1>
-  <p>App.vue switches between which component to show.</p>
-  <button @click="toggleValue = !toggleValue">Switch component</button>
-  <component :is="activeComp"></component>
+  <p>With &lt;KeepAlive :max="2"&gt; only the last two visited components will remember the user input.</p>
+  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-one'"> One</label>
+  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-two'"> Two</label>
+  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-three'"> Three</label>
+  <KeepAlive :max="2">
+    <component :is="compName"></component>
+  </KeepAlive>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      toggleValue: true
-    }
-  },
-  computed: {
-    activeComp() {
-      if(this.toggleValue) {
-        return 'comp-one'
-      }
-      else {
-        return 'comp-two'
-      }
+      compName: 'comp-one'
     }
   }
 }
@@ -37,5 +31,12 @@ export default {
 }
 h2 {
   text-decoration: underline;
+}
+label {
+  display: inline-block;
+  padding: 5px;
+}
+label:hover {
+  cursor: pointer;
 }
 </style>

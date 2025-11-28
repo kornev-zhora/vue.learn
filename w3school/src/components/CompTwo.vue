@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: 'CompTwo',
   data () {
     return {
       msg: ''

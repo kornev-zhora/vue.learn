@@ -5,12 +5,12 @@
     <p>Choose food.</p>
     <label>
       <input type="radio" name="rbgFood"
-             v-model="imgSrc" :value="'one.svg'" />
+             v-model="imgSrc" :value="'img_apple.svg'" />
       Apple
     </label>
     <label>
       <input type="radio" name="rbgFood"
-             v-model="imgSrc" :value="'two.svg'" />
+             v-model="imgSrc" :value="'img_cake.svg'" />
       Cake
     </label>
   </div>
@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  name: 'CompOne',
   data () {
     return {
       imgSrc: 'img_question.svg'
@@ -34,8 +35,5 @@ img {
   float: right;
   height: 100px;
   margin-top: 20px;
-}
-label:hover {
-  cursor: pointer;
 }
 </style>
