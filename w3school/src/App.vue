@@ -1,44 +1,41 @@
 <template>
-  <h1>App.vue</h1>
-
-
-  <slot-comp>
-
-    <template #leftSlot="leftProps">
-      <div>{{ leftProps.text }}</div>
-    </template>
-
-    <template #rightSlot="rightProps">
-      <div>{{ rightProps.text }}</div>
-    </template>
-
-  </slot-comp>
-
-
+  <h1>Dynamic Components</h1>
+  <p>App.vue switches between which component to show.</p>
+  <button @click="toggleValue = !toggleValue">Switch component</button>
+  <component :is="activeComp"></component>
 </template>
 
-
-
 <script>
-import SlotComp from './components/SlotComp.vue';
-
 export default {
-  data() {
+  data () {
     return {
-      newItem: '',
-      items: ['Buy apples','Make pizza','Mow the lawn'],
-      foods: ['Apples','Pizza','Rice','Fish','Cake']
-    };
-  },
-  methods: {
-    addItem() {
-      this.items.push(this.newItem),
-          this.newItem = '';
+      toggleValue: true
     }
   },
-  components: {
-    'slot-comp': SlotComp
+  computed: {
+    activeComp() {
+      if(this.toggleValue) {
+        return 'comp-one'
+      }
+      else {
+        return 'comp-two'
+      }
+    }
   }
 }
-
 </script>
+
+<style>
+#app {
+  width: 350px;
+  margin: 10px;
+}
+#app > div {
+  border: solid black 2px;
+  padding: 10px;
+  margin-top: 10px;
+}
+h2 {
+  text-decoration: underline;
+}
+</style>
