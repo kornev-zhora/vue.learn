@@ -1,0 +1,67 @@
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Daniel",
+        "last": "Morales"
+      },
+      "location": {
+        "street": {
+          "number": 7180,
+          "name": "Avenida de La Albufera"
+        },
+        "city": "Valencia",
+        "state": "Cantabria",
+        "country": "Spain",
+        "postcode": 42844,
+        "coordinates": {
+          "latitude": "-30.5405",
+          "longitude": "-50.0886"
+        },
+        "timezone": {
+          "offset": "+1:00",
+          "description": "Brussels, Copenhagen, Madrid, Paris"
+        }
+      },
+      "email": "daniel.morales@example.com",
+      "login": {
+        "uuid": "397b1e35-ec80-4a72-8443-bf968e6018c9",
+        "username": "crazyelephant733",
+        "password": "creampie",
+        "salt": "6WGcPBir",
+        "md5": "dfe72073323f6e4461393aafb34b4123",
+        "sha1": "d86830ef9e29c0e1eab8081e79491d1c95cd0014",
+        "sha256": "3ef2284962f01ef5e78752123139de4faff20ba0cd546005dc9daa5fd0810755"
+      },
+      "dob": {
+        "date": "1999-12-09T06:31:50.299Z",
+        "age": 25
+      },
+      "registered": {
+        "date": "2014-04-27T18:27:45.497Z",
+        "age": 11
+      },
+      "phone": "959-401-585",
+      "cell": "606-240-194",
+      "id": {
+        "name": "DNI",
+        "value": "42696892-B"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/43.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/43.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/43.jpg"
+      },
+      "nat": "ES"
+    }
+  ],
+  "info": {
+    "seed": "3496080d9989ea7b",
+    "results": 1,
+    "page": 1,
+    "version": "1.4"
+  }
+}
+

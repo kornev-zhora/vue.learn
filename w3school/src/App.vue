@@ -1,42 +1,48 @@
 <template>
-  <h1>Dynamic Components</h1>
-  <p>With &lt;KeepAlive :max="2"&gt; only the last two visited components will remember the user input.</p>
-  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-one'"> One</label>
-  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-two'"> Two</label>
-  <label><input type="radio" name="rbgComp" v-model="compName" :value="'comp-three'"> Three</label>
-  <KeepAlive :max="2">
-    <component :is="compName"></component>
-  </KeepAlive>
+  <h1>Example</h1>
+  <p>Click the button to fetch data with an HTTP request.</p>
+  <p>Each click generates an object with a random user from <a href="https://randomuser.me/api/" target="_blank">https://randomuser.me/api/</a>.</p>
+  <p>The robot avatars are lovingly delivered by <a href="http://Robohash.org" target="_blank">RoboHash</a>.</p>
+  <button @click="fetchData">Fetch data</button>
+  <div v-if="data" id="dataDiv">
+    <img :src="data.picture.large" alt="avatar">
+    <pre>{{ data.name.title + " " + data.name.first + " " + data.name.last }}</pre>
+    <p>"{{ data.phone }}"</p>
+  </div>
+<!--  <pre v-if="data">{{ data }}</pre>-->
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  data () {
+  data() {
     return {
-      compName: 'comp-one'
+      data: null,
+    };
+  },
+  methods: {
+    async fetchData() {
+      const response = await axios.get("https://randomuser.me/api/");
+      this.data = response.data.results[0];
     }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  width: 350px;
-  margin: 10px;
-}
-#app > div {
-  border: solid black 2px;
-  padding: 10px;
+#dataDiv {
+  width: 240px;
+  background-color: aquamarine;
+  border: solid black 1px;
   margin-top: 10px;
+  padding: 10px;
 }
-h2 {
-  text-decoration: underline;
+#dataDiv > img {
+  width: 100%;
 }
-label {
-  display: inline-block;
-  padding: 5px;
-}
-label:hover {
-  cursor: pointer;
+pre {
+  font-size: larger;
+  font-weight: bold;
 }
 </style>
