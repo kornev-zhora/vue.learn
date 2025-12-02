@@ -1,39 +1,19 @@
 <template>
-  <div>
-    <img :src="imgSrc">
-    <h2>Component One</h2>
-    <p>Choose food.</p>
-    <label>
-      <input type="radio" name="rbgFood"
-             v-model="imgSrc" :value="'img_apple.svg'" />
-      Apple
-    </label>
-    <label>
-      <input type="radio" name="rbgFood"
-             v-model="imgSrc" :value="'img_cake.svg'" />
-      Cake
-    </label>
-  </div>
+  <h2>Component</h2>
+  <p>This is the component</p>
+  <p id="pResult">{{ text }}</p>
 </template>
 
 <script>
 export default {
-  name: 'CompOne',
-  data () {
+  data() {
     return {
-      imgSrc: 'img_question.svg'
+      text: '...'
     }
+  },
+  beforeCreate() {
+    this.text = 'initial text';
+    console.log("beforeCreate: The component is not created yet.");
   }
 }
 </script>
-
-<style scoped>
-div {
-  background-color: lightgreen;
-}
-img {
-  float: right;
-  height: 100px;
-  margin-top: 20px;
-}
-</style>

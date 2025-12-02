@@ -1,48 +1,57 @@
 <template>
-  <h1>Example</h1>
-  <p>Click the button to fetch data with an HTTP request.</p>
-  <p>Each click generates an object with a random user from <a href="https://randomuser.me/api/" target="_blank">https://randomuser.me/api/</a>.</p>
-  <p>The robot avatars are lovingly delivered by <a href="http://Robohash.org" target="_blank">RoboHash</a>.</p>
-  <button @click="fetchData">Fetch data</button>
-  <div v-if="data" id="dataDiv">
-    <img :src="data.picture.large" alt="avatar">
-    <pre>{{ data.name.title + " " + data.name.first + " " + data.name.last }}</pre>
-    <p>"{{ data.phone }}"</p>
+  <h1>Food</h1>
+  <div @click="this.activeComp = 'food-about'" class="divBtn">About</div>
+  <div @click="this.activeComp = 'food-kinds'" class="divBtn">Kinds</div>
+  <div id="divComp">
+    <component :is="activeComp"></component>
   </div>
-<!--  <pre v-if="data">{{ data }}</pre>-->
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data() {
     return {
-      data: null,
-    };
+      activeComp: 'food-kinds',
+      foods: [
+        { name: 'Pizza', imgUrl: 'img_pizza.svg' },
+        { name: 'Apple', imgUrl: 'img_apple.svg' },
+        { name: 'Cake', imgUrl: 'img_cake.svg' },
+        { name: 'Fish', imgUrl: 'img_fish.svg' },
+        { name: 'Rice', imgUrl: 'img_rice.svg' }
+      ]
+    }
   },
-  methods: {
-    async fetchData() {
-      const response = await axios.get("https://randomuser.me/api/");
-      this.data = response.data.results[0];
+  provide() {
+    return {
+      foods: this.foods
     }
   }
-};
+}
 </script>
 
-<style>
-#dataDiv {
-  width: 240px;
-  background-color: aquamarine;
-  border: solid black 1px;
-  margin-top: 10px;
+<style scoped>
+.divBtn {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  background-color: white;
+  border: solid 2px #04AA6D;
+  border-radius: 10px;
+  font-family: Verdana,sans-serif;
+  color: black;
   padding: 10px;
+  margin: 10px;
 }
-#dataDiv > img {
-  width: 100%;
+.divBtn:hover {
+  background-color: #04AA6D;
+  color: white;
+  cursor: pointer;
 }
-pre {
-  font-size: larger;
-  font-weight: bold;
+#divComp {
+  border: dashed black 1px;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 400px;
 }
 </style>
